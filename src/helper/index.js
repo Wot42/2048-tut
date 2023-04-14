@@ -184,3 +184,5 @@ class Board {
 }
 
 export { Board };
+
+// has lost only needs to check across and down. board constructor dosen't use board size
