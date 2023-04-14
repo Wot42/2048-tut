@@ -3,6 +3,7 @@ import Tile from "./Tile";
 import Cell from "./Cell";
 import { Board } from "../helper";
 import useEvent from "../hooks/useEvent";
+import GameOverlay from "./GameOverlay";
 
 const BoardView = () => {
   const [board, setBoard] = useState(new Board());
@@ -34,6 +35,10 @@ const BoardView = () => {
     );
   });
 
+  const resetGame = () => {
+    setBoard(new Board());
+  };
+
   const tiles = board.tiles
     .filter((tiles) => tiles.value !== 0)
     .map((tile, index) => {
@@ -42,12 +47,19 @@ const BoardView = () => {
   return (
     <div>
       <div className="details-box">
-        <div className="resetButton">New Game</div>
-        <div>Score:{board.score}</div>
+        <div className="resetButton" onClick={resetGame}>
+          New Game
+        </div>
+        <div className="score-box">
+          <div className="score-header">Score</div>
+          <div>{board.score}</div>
+        </div>
       </div>
       <div className="board">
         {cells}
         {tiles}
+        {console.log(board)}
+        <GameOverlay onRestart={resetGame} board={board} />
       </div>
     </div>
   );
